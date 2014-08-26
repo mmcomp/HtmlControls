@@ -1,4 +1,17 @@
 var tmp_val='';
+function killNoneNumber(e)
+{
+	e = e || window.event;
+	var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+	var charStr = String.fromCharCode(charCode);
+	if (!/\d/.test(charStr) && !e.altKey && !e.ctrlKey) {
+		return false;
+	}
+	if(validateInput(e.target))
+		tmp_val = e.target.value;
+	else
+		return false;
+}
 function fetchConfig(conf)
 {
 	var blocks = [];
@@ -57,14 +70,7 @@ function validateInputKeyPress(e)
 	var stat = true;
 	e = e || window.event;
 	var chrCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
-	if (chrCode==0) 
-		chrTyped = 'SPECIAL KEY';
-	else 
-		chrTyped = String.fromCharCode(chrCode);
-	if (chrTyped.match(/\d|[\b]|SPECIAL/)==null) 
-		stat = false;
-	if(stat)
-		stat = validateInput(e.target);
+	stat = validateInput(e.target);
 	if(!stat)
 		e.target.value = tmp_val;
 }

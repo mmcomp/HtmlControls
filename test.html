@@ -3,10 +3,9 @@
 		<title>
 			Test
 		</title>
-		<script src="numberMask.js">
-		</script>
+		<script src="numberMask.js"></script>
 	</head>
 	<body dir="rtl">
-		<input onkeypress="tmp_val = this.value;"  onkeyup="return validateInputKeyPress(event);" title="###.##" value="0.0" />
+		<input onkeypress="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="###.##" value="0.0" />
 	</body>
 </html>
