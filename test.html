@@ -1,11 +1,17 @@
+<!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8">
 		<title>
 			Test
 		</title>
 		<script src="numberMask.js"></script>
 	</head>
 	<body dir="rtl">
-		<input onkeypress="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="###.##" value="0.0" />
+		عدد صحیح :<input onfocus="tmp_val = '';" onkeypress="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="@" value="" />
+		عدد اعشار:<input onfocus="tmp_val = '';" onkeypress="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="@.##" value="" />
+		مبلغ بدون حروف :<input onfocus="tmp_val = '';" onkeypress="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="c" value="" />
+		تاریخ :<input onfocus="tmp_val = '';" onkeypress="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="####/##/##" value="" />
+		مبلغ با حروف :<input onfocus="tmp_val = '';" onkeypress="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="C" value="" />
 	</body>
 </html>
