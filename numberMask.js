@@ -183,4 +183,52 @@ function validateInputKeyPress(e)
 	if(!stat)
 		e.target.value = tmp_val;
 }
-
+function validateInputKeyDown(e)
+{
+        var stat = true;
+        e = e || window.event;
+        var chrCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+	var charStr = String.fromCharCode(chrCode);
+        var conf = fetchConfig(e.target.title);
+	console.log(e);
+	if(chrCode == 229)
+		return false;
+	if (!/\d/.test(charStr) && !e.altKey && !e.ctrlKey) {
+                return false;
+        }
+	if(stat)
+	{
+		console.log(conf);
+		stat = false;
+		var tmp = e.target.value.split(conf.block_sep);
+		var blocks = conf.blocks;
+		if(tmp.length <= conf.blocks.length)
+		{
+			var index = tmp.length-1;
+			console.log(index);
+			console.log(blocks[index]);
+			if(blocks[index] > 0)
+			{
+				console.log(tmp[index],tmp[index].length);
+				if(tmp[index].length>blocks[index])
+				{
+					console.log('error');
+					if(index < blocks.length-1)
+					{
+						e.target.value += conf.block_sep;
+					}
+				}
+				e.target.value += charStr;
+			}
+			else
+				stat = true;
+		}
+		//console.log(e.target.value+charStr);
+		//if(validateInput(e.target))
+			//e.target.value += charStr;
+	}
+        //stat = validateInput(e.target);
+        //if(!stat)
+                //e.target.value = tmp_val;
+	return stat;
+}

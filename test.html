@@ -13,5 +13,7 @@
 		مبلغ بدون حروف :<input onfocus="tmp_val = '';" onkeypress="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="c" value="" />
 		تاریخ :<input onfocus="tmp_val = '';" onkeypress="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="####/##/##" value="" />
 		مبلغ با حروف :<input onfocus="tmp_val = '';" onkeypress="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="C" value="" />
+
+		<input onkeydown="return validateInputKeyDown(event);"  title="####/##/##" value="" />
 	</body>
 </html>
