@@ -1,4 +1,4 @@
-var ok_chars = [0,8,9,37,38,39,40,46,112,113,114,115,116,117,118,119,120,121,122,123];
+var ok_chars = [37,38,39,40,46];
 var tmp_val='';
 function underThous(inpp)
 {
@@ -74,21 +74,16 @@ function killNoneNumber(e)
 	e = e || window.event;
 	var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
 	var charStr = String.fromCharCode(charCode);
-        var charStr2 = String.fromCharCode(charCode-48);
 	var conf = fetchConfig(e.target.title);
-	if (!/\d/.test(charStr) && !/\d/.test(charStr2) && !e.altKey && !e.ctrlKey && charStr!=conf.block_sep && ok_chars.indexOf(charCode)<0) {
+	if (!/\d/.test(charStr) && !e.altKey && !e.ctrlKey && charStr!=conf.block_sep && ok_chars.indexOf(charCode)<0) {
 		return false;
 	}
 	if(ok_chars.indexOf(charCode)>=0)
 	{
 		return true;
 	}
-	//console.log(conf.block_sep,charStr);
 	if(validateInput(e.target))
-	{
 		tmp_val = e.target.value;
-		console.log(charStr);
-	}
 	else
 		return false;
 }
@@ -132,16 +127,16 @@ function checkInputForNumber(obj,conf)
 	{
 		if(blocks[0] < 0)
 		{
+			var val = obj.value;
+			var tmp = val.replace(/,/g , '');
 			out = true;
-			var tmp = parseInt(obj.value.replace(/,/g , ''),10);
-			obj.value = formatMoney(obj.value.replace(/,/g , ''),0, '.', ',');
+			obj.value = formatMoney(tmp,0, '.', ',');
 			if(blocks[0]==-1)
 			{
 				var parentGuest = obj;
 				var childGuest = document.createElement("span");
 				childGuest.className = "adad_horoof";
 				childGuest.innerHTML = addad(tmp);
-				console.log();
 				removeHoroof("adad_horoof");
 				if (parentGuest.nextSibling) {
 				  parentGuest.parentNode.insertBefore(childGuest, parentGuest.nextSibling);
@@ -155,16 +150,18 @@ function checkInputForNumber(obj,conf)
 		{
 			var val = obj.value;
 			var tmp = val.split(block_sep);
-			console.log(tmp);
 			if(tmp.length <= blocks.length)
 			{
 				out = true;
 				for(var i = 0;i < tmp.length;i++)
 				{
 					var tmp_num = parseInt(tmp[i],10);
-					if(blocks[i] > 0)
-						if(tmp[i].length > blocks[i])
-							out = false;
+//					if(isNaN(tmp_num))
+//						out = false;
+//					else
+						if(blocks[i] > 0)
+							if(tmp[i].length > blocks[i])
+								out = false;
 				}
 			}
 		}
@@ -187,12 +184,11 @@ function validateInputKeyPress(e)
 	var stat = true;
 	e = e || window.event;
 	var chrCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+	console.log(chrCode);
 	if(ok_chars.indexOf(chrCode)<0)
 		stat = validateInput(e.target);
 	if(!stat)
-	{
 		e.target.value = tmp_val;
-	}
 }
 function validateInputKeyDown(e)
 {
@@ -200,34 +196,33 @@ function validateInputKeyDown(e)
         e = e || window.event;
         var chrCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
 	var charStr = String.fromCharCode(chrCode);
-	var charStr2 = String.fromCharCode(chrCode-48);
         var conf = fetchConfig(e.target.title);
+	console.log(e);
 	if(chrCode == 229)
 		return false;
-	if (!/\d/.test(charStr) && !/\d/.test(charStr2) && !e.altKey && !e.ctrlKey && ok_chars.indexOf(chrCode)<0) {
+	if (!/\d/.test(charStr) && !e.altKey && !e.ctrlKey && ok_chars.indexOf(chrCode)<0) {
                 return false;
         }
-	if(!/\d/.test(charStr))
-		charStr = charStr2;
-	if(stat && ok_chars.indexOf(chrCode)<0)
+	if(stat)
 	{
+		console.log(conf);
 		stat = false;
-		var tmp = (e.target.value+charStr).split(conf.block_sep);
+		var tmp = e.target.value.split(conf.block_sep);
 		var blocks = conf.blocks;
 		if(tmp.length <= conf.blocks.length)
 		{
 			var index = tmp.length-1;
+			console.log(index);
+			console.log(blocks[index]);
 			if(blocks[index] > 0)
 			{
+				console.log(tmp[index],tmp[index].length);
 				if(tmp[index].length>blocks[index])
 				{
+					console.log('error');
 					if(index < blocks.length-1)
 					{
 						e.target.value += conf.block_sep;
-					}
-					else
-					{
-						return false;
 					}
 				}
 				e.target.value += charStr;
@@ -235,6 +230,9 @@ function validateInputKeyDown(e)
 			else
 				stat = true;
 		}
+		//console.log(e.target.value+charStr);
+		//if(validateInput(e.target))
+			//e.target.value += charStr;
 	}
         //stat = validateInput(e.target);
         //if(!stat)

@@ -8,12 +8,11 @@
 		<script src="numberMask.js"></script>
 	</head>
 	<body dir="rtl">
-		عدد صحیح :<input onfocus="tmp_val = '';" onkeypress="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="@" value="" />
-		عدد اعشار:<input onfocus="tmp_val = '';" onkeypress="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="@.##" value="" />
-		مبلغ بدون حروف :<input onfocus="tmp_val = '';" onkeypress="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="c" value="" />
+		عدد صحیح :<input onfocus="tmp_val = '';" onkeydown="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="@" value="" />
+		عدد اعشار:<input onfocus="tmp_val = '';" onkeydown="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="@.##" value="" />
+		مبلغ بدون حروف :<input onfocus="tmp_val = '';" onkeydown="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="c" value="" />
 		تاریخ :<input onfocus="tmp_val = '';" onkeypress="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="####/##/##" value="" />
-		مبلغ با حروف :<input onfocus="tmp_val = '';" onkeypress="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="C" value="" />
+		مبلغ با حروف :<input onfocus="tmp_val = '';" onkeydown="return killNoneNumber(event);"  onkeyup="return validateInputKeyPress(event);" title="C" value="" />
 
-		<input onkeydown="return validateInputKeyDown(event);"  title="####/##/##" value="" />
 	</body>
 </html>
